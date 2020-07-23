@@ -1,32 +1,49 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+  <div>
+    <div class="container-fluid mt-4">
+      <Header />
     </div>
-    <router-view />
+    <div class="container">
+      <router-view />
+    </div>
+    <Modal title="Sign Up / Create Account" :visible="visible">
+      <AuthenticationForm />
+    </Modal>
   </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+<script>
+import store from "./store";
+import Header from "./components/Header";
+import Modal from "./components/Modal";
+import AuthenticationForm from "./components/AuthenticationForm";
+export default {
+  name: "App",
+  components: {
+    Header,
+    Modal,
+    AuthenticationForm
+  },
+  data() {
+    return {
+      visible: false
+    };
+  },
+  created() {
+    // Check if there is a logged in user in local storage and then push their details to the store.
+    const isLoggedIn = JSON.parse(localStorage.getItem("isLoggedIn"));
+    if (isLoggedIn) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      store.commit("setLoggedInUser", user);
+      store.commit("setIsLoggedIn", true);
+    }
+    const cartItems = JSON.parse(localStorage.getItem("cart"));
+    if (cartItems) {
+      store.commit("setCartProducts", cartItems);
+    } else {
+      store.commit("setCartProducts", []);
+    }
+  }
+};
+</script>
+<style></style>

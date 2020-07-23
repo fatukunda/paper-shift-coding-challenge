@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import Home from "../views/Home";
+import { auth } from "../config/firebase";
 
 Vue.use(VueRouter);
 
@@ -11,13 +12,15 @@ const routes = [
     component: Home
   },
   {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    path: "/products/:id",
+    name: "SingleProduct",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+      import(
+        /* webpackChunkName: "SingleProduct" */ "../views/SingleProduct.vue"
+      ),
+    meta: {
+      requiresAuth: true
+    }
   }
 ];
 
@@ -25,6 +28,16 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes
+});
+
+// Check if user is logged in
+router.beforeEach((to, from, next) => {
+  const requiresAuth = to.matched.some(route => route.meta.requiresAuth);
+  if (requiresAuth && !auth.currentUser) {
+    next("/");
+  } else {
+    next();
+  }
 });
 
 export default router;
