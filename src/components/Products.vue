@@ -28,8 +28,8 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import Product from "../components/Product";
-import Container from "../components/Container";
+const Product = () => import("@/components/Product");
+const Container = () => import("@/components/_generics/Container");
 export default {
   name: "Products",
   components: {

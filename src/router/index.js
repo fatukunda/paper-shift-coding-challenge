@@ -14,10 +14,7 @@ const routes = [
   {
     path: "/products/:id",
     name: "SingleProduct",
-    component: () =>
-      import(
-        /* webpackChunkName: "SingleProduct" */ "../views/SingleProduct.vue"
-      ),
+    component: () => import("../views/SingleProduct.vue"),
     meta: {
       requiresAuth: true
     }

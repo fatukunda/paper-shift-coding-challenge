@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import Products from "../components/Products";
-import ShoppingCart from "../components/ShoppingCart";
+const Products = () => import("@/components/Products");
+const ShoppingCart = () => import("@/components/ShoppingCart");
 export default {
   name: "Home",
   components: {

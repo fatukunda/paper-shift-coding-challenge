@@ -24,9 +24,14 @@
             </span>
           </div>
           <div class="col-md-12 text-center mt-4">
-            <b-button variant="success" size="sm" block class="btn-checkout">{{
-              `Checkout ($${cartTotalPrice.toFixed(2)})`
-            }}</b-button>
+            <b-button
+              variant="success"
+              size="sm"
+              block
+              class="btn-checkout"
+              @click="checkout"
+              >{{ `Checkout ($${cartTotalPrice.toFixed(2)})` }}</b-button
+            >
           </div>
         </div>
       </div>
@@ -51,7 +56,7 @@ export default {
     CartItem
   },
   computed: {
-    ...mapGetters(["cartProducts", "cartTotalPrice"])
+    ...mapGetters(["cartProducts", "cartTotalPrice", "isLoggedIn"])
   },
   methods: {
     ...mapMutations([
@@ -67,6 +72,13 @@ export default {
     decreamentQuatity(item) {
       this.decreamentItemQuantity(item);
       this.saveCartToLocalStorage();
+    },
+    checkout() {
+      if (!this.isLoggedIn) {
+        this.$bvModal.show("main-modal");
+      } else {
+        alert("Payment and Shipment not implemented in this iteration.");
+      }
     }
   }
 };

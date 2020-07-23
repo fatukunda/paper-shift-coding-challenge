@@ -46,7 +46,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import Container from "../components/Container";
+const Container = () => import("@/components/_generics/Container");
 export default {
   name: "SingleProduct",
   components: {

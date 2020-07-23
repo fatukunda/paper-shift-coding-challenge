@@ -1,4 +1,4 @@
-<template>
+<template functional>
   <div>
     <b-modal
       id="main-modal"

@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import Input from "./_generics/Input";
+const Input = () => import("./_generics/Input");
 export default {
   name: "Login",
   data() {

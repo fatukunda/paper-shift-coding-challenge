@@ -14,9 +14,9 @@
 
 <script>
 import store from "./store";
-import Header from "./components/Header";
-import Modal from "./components/Modal";
-import AuthenticationForm from "./components/AuthenticationForm";
+const Header = () => import("@/components/Header");
+const Modal = () => import("@/components/_generics/Modal");
+const AuthenticationForm = () => import("@/components/AuthenticationForm");
 export default {
   name: "App",
   components: {
